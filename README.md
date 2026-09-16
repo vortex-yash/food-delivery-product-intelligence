@@ -1,5 +1,5 @@
-# Eternal - Food Delivery Product Intelligence
-
+# Food Delivery Product Intelligence — Product Analytics Case Study
+> **Note:** This is an independent product analytics case study built using a synthetic food-delivery marketplace dataset. It is not based on Eternal's internal data, systems, or proprietary information.
 A portfolio-grade Product Analytics project designed to demonstrate advanced SQL, Python, and Product Analytics skills.
 
 ## Architecture
