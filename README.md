@@ -2,6 +2,8 @@
 
 > **Note:** This is an independent product analytics case study built using a synthetic food-delivery marketplace dataset. It is not based on Eternal's internal data, systems, or proprietary information.
 
+---
+
 ## 📌 Project Overview
 
 This project simulates a product analytics workflow for a food-delivery marketplace.
@@ -36,7 +38,7 @@ This project uses synthetic data to investigate these questions through a struct
 
 The dataset is synthetically generated using Python and contains correlated user, session, event, restaurant, and order behaviour.
 
-Approximate scale:
+### Approximate Scale
 
 | Entity | Volume |
 |---|---:|
@@ -46,7 +48,7 @@ Approximate scale:
 | Orders | 94,000+ |
 | Restaurants | 1,000 |
 
-### Core entities
+### Core Entities
 
 - **Users** — acquisition channel, platform, app version, city and user attributes
 - **Restaurants** — restaurant-level information
@@ -67,7 +69,7 @@ The data is intentionally synthetic and should not be interpreted as real compan
 - **Dashboard:** Streamlit
 - **Testing:** pytest
 
-### Analytical workflow
+### Analytical Workflow
 
 ```text
 Synthetic Data
@@ -131,16 +133,16 @@ Checkout Start
 Checkout Success
 ```
 
-Observed funnel results:
+### Observed Funnel Results
 
 | Funnel Stage | Sessions |
 |---|---:|
 | App Open | 386,679 |
 | Search | 329,001 |
 | Restaurant View | 246,991 |
-| Add to Cart | ~160K |
-| Checkout Start | ~112K |
-| Checkout Success | ~94K |
+| Add to Cart | 160,367 |
+| Checkout Start | 112,072 |
+| Checkout Success | 94,650 |
 
 Overall session-to-success conversion is approximately:
 
@@ -168,13 +170,13 @@ The analysis identified a localized performance difference:
 | Successful checkouts | 3,960 |
 | Checkout success rate | 72.79% |
 
-The comparable overall checkout-success baseline is approximately **84.5%**, giving a difference of roughly:
+The comparable checkout-success baseline is approximately **84.5%**, giving a difference of roughly:
 
 **11.7 percentage points**
 
 This does not prove the underlying technical cause. It identifies a high-volume segment that warrants deeper investigation.
 
-### Suggested investigation
+### Suggested Investigation
 
 An engineering/product investigation could examine:
 
@@ -203,8 +205,7 @@ This prevents the cohort definition from depending on signup timing when the ana
 ```text
 Retention % =
 Active users in cohort week /
-Total users in cohort
-× 100
+Total users in cohort × 100
 ```
 
 Week 0 represents the full active cohort and therefore starts at **100%**.
@@ -225,7 +226,7 @@ Users are segmented based on their total completed-order spend.
 | Medium Value | >150 and ≤500 |
 | High Value | >500 |
 
-The segmentation is also broken down by acquisition channel to understand how different acquisition sources relate to downstream user value.
+The segmentation is also broken down by acquisition channel to understand how different acquisition sources relate to downstream user behaviour.
 
 > **Important:** Total completed spend is used as a behavioural value measure in this case study. It is not presented as formal Customer Lifetime Value (LTV).
 
@@ -306,10 +307,11 @@ Techniques include:
 - Multi-dimensional aggregation
 - Conversion-rate calculations
 
-### SQL analyses
+### SQL Analyses
 
 ```text
 src/sql/
+
 ├── funnels.sql
 ├── cohorts.sql
 ├── segmentation.sql
@@ -329,7 +331,7 @@ Python is used for:
 - KPI monitoring
 - Running analytical workflows
 
-Main libraries:
+### Main Libraries
 
 - Pandas
 - NumPy
@@ -341,7 +343,7 @@ Main libraries:
 
 # 📊 Dashboard
 
-The project includes an interactive Streamlit dashboard containing:
+The project includes an interactive Streamlit dashboard containing three main views.
 
 ### Executive Overview
 
@@ -374,11 +376,39 @@ streamlit run src\dashboard\app.py
 
 ---
 
+# 📸 Dashboard Screenshots
+
+The following screenshots show the actual Streamlit dashboard produced by this project.
+
+## Executive Overview
+
+The executive dashboard provides a high-level view of the product's user base, activation, completed GMV, average order value, and daily order activity.
+
+![Executive Overview](docs/images/executive_overview.png)
+
+---
+
+## Product Funnel & Root Cause Analysis
+
+The funnel view tracks users from app open through checkout success, while the RCA analysis breaks checkout performance down by platform, app version, and city.
+
+![Product Funnel and RCA](docs/images/product_funnel_rca.png)
+
+---
+
+## Retention & User Segmentation
+
+The retention view presents weekly cohort retention alongside user spend segmentation by acquisition channel.
+
+![Retention and Segmentation](docs/images/retention_segmentation.png)
+
+---
+
 # 🚨 Automated KPI Monitoring
 
 A lightweight monitoring script checks daily checkout success rates.
 
-The monitoring workflow:
+### Monitoring Workflow
 
 ```text
 Daily Checkout Data
@@ -408,14 +438,18 @@ python src\automation\monitor.py
 
 The project includes automated tests using `pytest`.
 
-Current test suite:
-
-**10 tests passing**
+The current test suite contains **10 passing tests**.
 
 Run:
 
 ```powershell
 pytest tests\
+```
+
+Expected result:
+
+```text
+10 passed
 ```
 
 The tests validate analytical logic and data-quality assumptions used by the project.
@@ -428,6 +462,11 @@ The tests validate analytical logic and data-quality assumptions used by the pro
 food-delivery-product-intelligence/
 │
 ├── docs/
+│   ├── images/
+│   │   ├── executive_overview.png
+│   │   ├── product_funnel_rca.png
+│   │   └── retention_segmentation.png
+│   │
 │   ├── executive_summary.md
 │   ├── interview_guide.md
 │   └── metric_dictionary.md
@@ -485,7 +524,7 @@ pip install -r requirements.txt
 
 ---
 
-## 2. Generate synthetic data
+## 2. Generate Synthetic Data
 
 ```powershell
 python src\generator\generate_data.py
@@ -501,7 +540,7 @@ python src\analysis\init_db.py
 
 ---
 
-## 4. Run SQL analysis
+## 4. Run SQL Analysis
 
 ```powershell
 python src\analysis\run_sql.py
@@ -509,7 +548,7 @@ python src\analysis\run_sql.py
 
 ---
 
-## 5. Run growth metrics
+## 5. Run Growth Metrics
 
 ```powershell
 python src\analysis\metric_tree.py
@@ -517,7 +556,7 @@ python src\analysis\metric_tree.py
 
 ---
 
-## 6. Run KPI monitoring
+## 6. Run KPI Monitoring
 
 ```powershell
 python src\automation\monitor.py
@@ -525,7 +564,7 @@ python src\automation\monitor.py
 
 ---
 
-## 7. Run tests
+## 7. Run Tests
 
 ```powershell
 pytest tests\
@@ -539,7 +578,7 @@ Expected result:
 
 ---
 
-## 8. Launch the dashboard
+## 8. Launch the Dashboard
 
 ```powershell
 streamlit run src\dashboard\app.py
@@ -551,15 +590,15 @@ The Streamlit dashboard will open locally in your browser.
 
 # 💡 Product Recommendations
 
-Based on the analytical findings, the following areas would be candidates for further investigation:
+Based on the analytical findings, the following areas would be candidates for further investigation.
 
-### 1. Investigate checkout performance
+### 1. Investigate Checkout Performance
 
-The Android v1.9 Chicago segment shows materially lower checkout success despite having substantial checkout volume.
+The Android v1.9 Chicago segment shows lower checkout success despite having substantial checkout volume.
 
 **Next step:** Engineering should investigate technical and payment-related failure signals for this segment.
 
-### 2. Investigate view-to-cart conversion
+### 2. Investigate View-to-Cart Conversion
 
 The restaurant-view → add-to-cart stage represents the largest relative funnel drop.
 
@@ -572,13 +611,13 @@ The restaurant-view → add-to-cart stage represents the largest relative funnel
 - Add-to-cart interaction
 - Restaurant/menu UX
 
-### 3. Analyze acquisition quality
+### 3. Analyze Acquisition Quality
 
 Acquisition channels can be compared using downstream behavioural metrics rather than acquisition volume alone.
 
 **Next step:** Compare channels using activation, repeat purchase, completed orders and spend behaviour.
 
-### 4. Monitor product health continuously
+### 4. Monitor Product Health Continuously
 
 Aggregate checkout metrics should be monitored alongside segmented dimensions such as:
 
@@ -616,7 +655,8 @@ Additional documentation is available in the `docs/` directory:
 
 This project demonstrates practical experience with:
 
-**Product Analytics**
+### Product Analytics
+
 - User behaviour analysis
 - Product journey analysis
 - Funnel analysis
@@ -627,7 +667,8 @@ This project demonstrates practical experience with:
 - Root-cause analysis
 - Product recommendations
 
-**Data & Technical**
+### Data & Technical
+
 - Advanced SQL
 - Python
 - Pandas
@@ -638,7 +679,8 @@ This project demonstrates practical experience with:
 - pytest
 - Statistical anomaly detection
 
-**Analytical Thinking**
+### Analytical Thinking
+
 - Structured problem solving
 - Metric definition
 - Multi-dimensional analysis
