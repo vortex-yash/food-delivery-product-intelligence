@@ -626,7 +626,7 @@ python -m venv .venv
 
 Activate it:
 
-..venv\Scripts\Activate.ps1
+.\.venv\Scripts\Activate.ps1
 
 Install dependencies:
 
@@ -802,4 +802,4 @@ Vortex Yash
 
 Independent Product Analytics Case Study
 
-GitHub: https\://github.com/vortex-yash/food-delivery-product-intelligence
+GitHub: https://github.com/vortex-yash/food-delivery-product-intelligence
