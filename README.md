@@ -329,13 +329,19 @@ Executive Overview
 
 The executive dashboard provides a high-level view of the product's user base, activation, completed GMV, average order value, and daily order activity.
 
+![Executive Overview](docs/images/executive_overview.png)
+
 Product Funnel & Root Cause Analysis
 
 The funnel view tracks users from app open through checkout success, while the RCA analysis breaks checkout performance down by platform, app version, and city.
 
+![Product Funnel and RCA](docs/images/product_funnel_rca.png)
+
 Retention & User Segmentation
 
 The retention view presents weekly cohort retention alongside user spend segmentation by acquisition channel.
+
+![Retention and Segmentation](docs/images/retention_segmentation.png)
 
 🚨 Automated KPI Monitoring
 
