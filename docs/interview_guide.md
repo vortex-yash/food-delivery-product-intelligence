@@ -28,9 +28,9 @@ I deliberately did not use dbt because the goal of this project was to demonstra
 
 ### Q: How did you calculate retention?
 
-**A:** I used a cohort-based approach. Users were grouped into signup-week cohorts, and their subsequent session activity was mapped to activity weeks.
+**A:** I used a cohort-based approach. Users were grouped into **first-active-week cohorts**, based on the first week in which they became active in the product.
 
-I then calculated the number of active users at each week elapsed since signup and divided it by the original cohort size to obtain weekly retention.
+I then mapped each user's subsequent activity to activity weeks and calculated the number of active users at each week elapsed since their first active week. This was divided by the original cohort size to obtain weekly retention.
 
 ---
 
@@ -66,7 +66,9 @@ I intentionally avoid calling it formal LTV because calculating true customer li
 
 App Open → Search → View Restaurant → Add to Cart → Checkout Start → Checkout Success.
 
-I then compared the conversion rate between each consecutive stage to identify where the largest relative drop occurred.
+For each step, I divided the number of sessions reaching the next stage by the number reaching the previous stage.
+
+I then compared these consecutive-stage conversion rates to identify the largest relative drop-off in the funnel.
 
 ---
 
@@ -85,9 +87,15 @@ The monitoring is designed to detect unusual global movement, while the RCA anal
 **A:** I would break the problem down further by:
 
 1. Checking the affected segment's funnel stage-by-stage.
+
 2. Comparing Android v1.9 against other Android versions in Chicago.
+
 3. Comparing Chicago against other cities for Android v1.9.
+
 4. Examining checkout failure/error codes if available.
+
 5. Checking whether the issue is concentrated in specific restaurant, payment, or user segments.
+
 6. Validating the finding over time to determine when the deterioration started.
+
 7. Working with Engineering to identify and validate the underlying technical cause.

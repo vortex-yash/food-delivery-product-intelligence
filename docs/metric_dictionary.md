@@ -3,10 +3,15 @@
 ## 1. Funnel Metrics
 
 - **App Open**: User launches the application.
+
 - **Search**: User performs a search for food or restaurants.
+
 - **View Restaurant**: User opens a restaurant/menu page.
+
 - **Add to Cart**: User adds an item to the cart.
+
 - **Checkout Start**: User initiates the checkout flow.
+
 - **Checkout Success**: User successfully completes an order.
 
 ### Funnel Conversion
@@ -15,7 +20,7 @@ Conversion between two stages is calculated as:
 
 **Stage Conversion Rate = Users reaching the next stage / Users reaching the previous stage × 100**
 
-The funnel is evaluated at the session level.
+The funnel is evaluated at the **session level**.
 
 ---
 
@@ -25,11 +30,15 @@ The funnel is evaluated at the session level.
 
 - **Activated Users**: Unique users with at least one completed order.
 
-- **Activation Rate**: Activated Users / Total Users × 100.
+- **Activation Rate**: Percentage of total users who have completed at least one order.
 
-- **Weekly Retention**: Percentage of users from a signup cohort who are active in a subsequent week.
+  `Activation Rate = Activated Users / Total Users × 100`
 
-  `Weekly Retention = Active Users in Cohort Week / Cohort Size × 100`
+- **Weekly Retention**: Percentage of users from their **first active week** who are active in a subsequent week.
+
+  `Weekly Retention = Active Users from First-Active-Week Cohort / Cohort Size × 100`
+
+  Cohorts are defined using each user's **first active week**, rather than signup week.
 
 ---
 
@@ -49,11 +58,15 @@ The funnel is evaluated at the session level.
 
 ### Spend Segments
 
-Users are segmented based on their total completed order spend:
+Users are divided into three approximately equal-sized groups using **`NTILE(3)`** based on total completed-order spend.
 
-- **High Value**: Total completed spend > $500
-- **Medium Value**: $150 < Total completed spend ≤ $500
-- **Low Value**: Total completed spend ≤ $150
+- **Low Value**: Total completed spend ≤ **$15.79**
+- **Medium Value**: Total completed spend > **$15.79** and ≤ **$42.32**
+- **High Value**: Total completed spend > **$42.32**
+
+Each segment contains approximately **20,000 users**.
+
+The thresholds are data-derived from the project dataset and are not manually selected business cutoffs.
 
 ---
 
@@ -65,4 +78,4 @@ Users are segmented based on their total completed order spend:
 
 - **Z-Score**: Measures how far a daily checkout success rate is from the historical mean in standard-deviation units.
 
-  A large absolute z-score indicates an unusually high or low daily checkout success rate and can trigger an anomaly alert.
+  A large absolute z-score indicates an unusually high or low daily checkout success rate and can be used to flag potential anomalies for investigation.

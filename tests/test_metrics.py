@@ -282,30 +282,30 @@ def test_rca_anomaly_presence_and_magnitude(conn):
 # ============================================================
 
 def test_monitor_query_sanity(conn):
-    # Ensure the KPI monitoring query runs
-    # and produces valid variation in daily success rate
+    # Ensure the KPI monitoring logic runs at the
+    # session level and produces valid daily variation.
 
     query = """
-        WITH daily_checkouts AS (
-
+        WITH checkout_sessions AS (
             SELECT
-                date_trunc('day', timestamp) AS dt,
+                session_id,
+                date_trunc('day', MIN(timestamp)) AS dt,
 
-                SUM(
+                MAX(
                     CASE
                         WHEN event_name = 'checkout_start'
                         THEN 1
                         ELSE 0
                     END
-                ) AS starts,
+                ) AS started,
 
-                SUM(
+                MAX(
                     CASE
                         WHEN event_name = 'checkout_success'
                         THEN 1
                         ELSE 0
                     END
-                ) AS successes
+                ) AS succeeded
 
             FROM events
 
@@ -314,7 +314,28 @@ def test_monitor_query_sanity(conn):
                 'checkout_success'
             )
 
-            GROUP BY 1
+            GROUP BY session_id
+        ),
+
+        daily_checkouts AS (
+            SELECT
+                dt,
+                SUM(started) AS starts,
+
+                SUM(
+                    CASE
+                        WHEN started = 1
+                         AND succeeded = 1
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS successes
+
+            FROM checkout_sessions
+
+            WHERE started = 1
+
+            GROUP BY dt
         )
 
         SELECT
@@ -327,11 +348,15 @@ def test_monitor_query_sanity(conn):
             ) AS success_rate
 
         FROM daily_checkouts
+
+        ORDER BY dt
     """
 
     df = conn.execute(query).fetchdf()
 
-    assert not df.empty
+    assert not df.empty, (
+        "KPI monitoring query returned no data"
+    )
 
     # Synthetic data should contain natural variation
     assert df['success_rate'].std() > 0, (
