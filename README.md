@@ -1,6 +1,6 @@
 # Food Delivery Product Intelligence — Product Analytics Case Study
 
-> **\*\*Note:\*\*** This is an independent product analytics case study built using a synthetic food-delivery marketplace dataset. It is not based on any company's internal data, systems, or proprietary information.
+> **Note:** This is an independent product analytics case study built using a synthetic food-delivery marketplace dataset. It is not based on any company's internal data, systems, or proprietary information.
 
 ---
 
@@ -12,7 +12,7 @@ The objective is to understand how users move through the product journey, ident
 
 The project covers the complete analytical flow:
 
-**\*\*User Behaviour → Product Journey → Funnel → Conversion → Retention → Segmentation → Growth Metrics → Root Cause Analysis → Recommendations → Monitoring\*\***
+**User Behaviour → Product Journey → Funnel → Conversion → Retention → Segmentation → Growth Metrics → Root Cause Analysis → Recommendations → Monitoring**
 
 The project was designed as a portfolio case study to demonstrate practical Product Analyst skills including advanced SQL, Python analysis, product metrics, funnel analysis, cohort analysis, segmentation, root-cause analysis, dashboarding, and KPI monitoring.
 
@@ -62,15 +62,15 @@ The dataset is synthetically generated using Python and contains correlated user
 
 ### Core Entities
 
-- **\*\*Users\*\*** — acquisition channel, platform, app version, city and user attributes
+- **Users** — acquisition channel, platform, app version, city and user attributes
 
-- **\*\*Restaurants\*\*** — restaurant-level information
+- **Restaurants** — restaurant-level information
 
-- **\*\*Sessions\*\*** — user sessions and activity timing
+- **Sessions** — user sessions and activity timing
 
-- **\*\*Events\*\*** — product journey events such as search, restaurant views, cart actions and checkout
+- **Events** — product journey events such as search, restaurant views, cart actions and checkout
 
-- **\*\*Orders\*\*** — completed and cancelled orders, order value, discount and delivery fee
+- **Orders** — completed and cancelled orders, order value, discount and delivery fee
 
 The data is intentionally synthetic and should not be interpreted as real company performance data.
 
@@ -78,31 +78,29 @@ The data is intentionally synthetic and should not be interpreted as real compan
 
 ## 🧱 Architecture
 
-- **\*\*Data Generation:\*\*** Python, Pandas, NumPy
+- **Data Generation:** Python, Pandas, NumPy
 
-- **\*\*Analytical Database:\*\*** DuckDB
+- **Analytical Database:** DuckDB
 
-- **\*\*Analysis:\*\*** SQL + Python
+- **Analysis:** SQL + Python
 
-- **\*\*Visualization:\*\*** Plotly
+- **Visualization:** Plotly
 
-- **\*\*Dashboard:\*\*** Streamlit
+- **Dashboard:** Streamlit
 
-- **\*\*Testing:\*\*** pytest
+- **Testing:** pytest
 
 ### Analytical Workflow
-
 ```text
 
 Synthetic Data
 
       ↓
 
-DuckDB
-
+- DuckDB
       ↓
 
-Advanced SQL
+- Advanced SQL
 
       ↓
 
@@ -135,33 +133,23 @@ KPI Monitoring
       ↓
 
 Streamlit Dashboard
+```
 
-🔍 Product Analytics Questions
 
+## 🔍 Product Analytics Questions
 The analysis focuses on questions such as:
 
-How many users enter the product journey?
-
-Where do users drop off in the ordering funnel?
-
-What is the overall checkout conversion rate?
-
-How does retention change across weekly cohorts?
-
-Which user segments show higher spending behaviour?
-
-Are conversion problems concentrated in a particular platform, app version, or city?
-
-How can localized performance deterioration be detected?
-
-Which product or engineering actions should be investigated?
-
-Which KPIs should be monitored automatically?
-
-📈 Key Findings
-
-1. Product Funnel
-
+- How many users enter the product journey?
+- Where do users drop off in the ordering funnel?
+- What is the overall checkout conversion rate?
+- How does retention change across weekly cohorts?
+- Which user segments show higher spending behaviour?
+- Are conversion problems concentrated in a particular platform, app version, or city?
+- How can localized performance deterioration be detected?
+- Which product or engineering actions should be investigated?
+- Which KPIs should be monitored automatically?
+## 📈 Key Findings
+### 1. Product Funnel
 The session-level funnel contains the following stages:
 
 App Open
@@ -186,21 +174,16 @@ Checkout Start
 
 Checkout Success
 
-Observed Funnel Results
+### Observed Funnel Results
 
-Funnel Stage      Sessions
-
-App Open    386,679
-
-Search      329,001
-
-Restaurant View   246,991
-
-Add to Cart 160,367
-
-Checkout Start    112,072
-
-Checkout Success  94,650
+| Funnel Stage | Sessions |
+|---|---:|
+| App Open | 386,679 |
+| Search | 329,001 |
+| Restaurant View | 246,991 |
+| Add to Cart | 160,367 |
+| Checkout Start | 112,072 |
+| Checkout Success | 94,650 |
 
 Overall session-to-success conversion is approximately:
 
@@ -208,27 +191,21 @@ Overall session-to-success conversion is approximately:
 
 The largest relative drop-off occurs around the restaurant-view → add-to-cart stage, making this an important area for product investigation.
 
-2. Checkout Root Cause Analysis
-
+### 2. Checkout Root Cause Analysis
 A segmented checkout analysis was performed across:
 
-Platform
-
-App version
-
-City
-
+- Platform
+- App version
+- City
 The analysis identified a localized performance difference:
 
-Android + v1.9 + Chicago
+**Android + v1.9 + Chicago**
 
-Metric      Value
-
-Checkout attempts 5,440
-
-Successful checkouts    3,960
-
-Checkout success rate   72.79%
+| Metric | Value |
+|---|---:|
+| Checkout attempts | 5,440 |
+| Successful checkouts | 3,960 |
+| Checkout success rate | 72.79% |
 
 The comparable checkout-success baseline is approximately 84.5%, giving a difference of roughly:
 
@@ -236,58 +213,38 @@ The comparable checkout-success baseline is approximately 84.5%, giving a differ
 
 This does not prove the underlying technical cause. It identifies a high-volume segment that warrants deeper investigation.
 
-Suggested Investigation
-
+### Suggested Investigation
 An engineering/product investigation could examine:
 
-Checkout API errors
-
-Payment failures
-
-App-version-specific bugs
-
-Network-related failures
-
-Device-level patterns
-
-Checkout latency
-
-Error logs
-
-Payment gateway responses
-
-Changes introduced in Android v1.9
-
+- Checkout API errors
+- Payment failures
+- App-version-specific bugs
+- Network-related failures
+- Device-level patterns
+- Checkout latency
+- Error logs
+- Payment gateway responses
+- Changes introduced in Android v1.9
 The analysis therefore demonstrates the distinction between identifying a statistical/product signal and proving its underlying cause.
 
-3. Cohort Retention
-
+### 3. Cohort Retention
 Weekly retention is calculated using each user's first active week as the cohort.
 
 This prevents the cohort definition from depending on signup timing when the analytical question is focused on product activity.
 
-Metric
-
-Retention % =
-
-Active users in cohort week /
-
-Total users in cohort × 100
+**Retention % = Active users in cohort week / Total users in cohort × 100**
 
 Week 0 represents the full active cohort and therefore starts at 100%.
 
 This analysis allows retention behaviour to be compared across different user cohorts and weeks since first activity.
 
-4. User Segmentation
-
+### 4. User Segmentation
 Users are segmented based on their total completed-order spend.
 
-Segmentation Method
-
+### Segmentation Method
 Users are divided into three approximately equal-sized groups using NTILE(3) based on total completed-order spend.
 
-Segments
-
+### Segments
 Segment     Completed Spend
 
 Low Value   ≤ $15.79
@@ -302,18 +259,15 @@ The segmentation is also broken down by acquisition channel to understand how di
 
 Important: Total completed spend is used as a behavioural value measure in this case study. It is not presented as formal Customer Lifetime Value (LTV).
 
-📐 Product Metrics
-
+## 📐 Product Metrics
 The project tracks several product and business metrics.
 
-Acquisition
-
+### Acquisition
 Total Users
 
 Number of unique users in the dataset.
 
-Activation
-
+### Activation
 Activated Users
 
 Users who completed at least one order.
@@ -322,24 +276,21 @@ Activation Rate
 
 Activated Users / Total Users × 100
 
-Funnel Conversion
-
+### Funnel Conversion
 Step Conversion =
 
 Users completing current step /
 
 Users completing previous step × 100
 
-Retention
-
+### Retention
 Weekly Retention =
 
 Active Users in Cohort Week /
 
 Cohort Size × 100
 
-Monetization
-
+### Monetization
 Average Order Value (AOV)
 
 Completed GMV /
@@ -350,16 +301,13 @@ Completed GMV
 
 Total order value generated from completed orders.
 
-Repeat Purchase
-
+### Repeat Purchase
 Percentage of activated users who completed at least two orders.
 
-🧠 Advanced SQL Analysis
-
+## 🧠 Advanced SQL Analysis
 The project uses SQL for most of the core analytical work.
 
-Techniques include:
-
+### Techniques include:
 Common Table Expressions (CTEs)
 
 JOINs
@@ -374,16 +322,15 @@ Date transformations
 
 Cohort calculations
 
-Funnel analysis
+- Funnel analysis
 
-User segmentation
+- User segmentation
 
 Multi-dimensional aggregation
 
 Conversion-rate calculations
 
-SQL Analyses
-
+### SQL Analyses
 src/sql/
 
 ├── funnels.sql
@@ -394,8 +341,7 @@ src/sql/
 
 └── rca.sql
 
-🐍 Python Analysis
-
+## 🐍 Python Analysis
 Python is used for:
 
 Synthetic data generation
@@ -410,24 +356,16 @@ KPI monitoring
 
 Running analytical workflows
 
-Main Libraries
-
-Pandas
-
-NumPy
-
-DuckDB
-
-Plotly
-
-Streamlit
-
-📊 Dashboard
-
+### Main Libraries
+- Pandas
+- NumPy
+- DuckDB
+- Plotly
+- Streamlit
+## 📊 Dashboard
 The project includes an interactive Streamlit dashboard containing three main views.
 
-Executive Overview
-
+### Executive Overview
 Total users
 
 Activation rate
@@ -438,8 +376,7 @@ Average Order Value
 
 Daily completed orders
 
-Product Funnel & RCA
-
+### Product Funnel & RCA
 Product funnel visualization
 
 Funnel conversion rates
@@ -450,8 +387,7 @@ Platform/app-version/city RCA table
 
 Lowest-performing observed segment
 
-Retention & Segmentation
-
+### Retention & Segmentation
 Weekly cohort retention
 
 Cohort activity table
@@ -462,14 +398,14 @@ Acquisition-channel breakdown
 
 Run the dashboard locally with:
 
+```powershell
 streamlit run src\dashboard\app.py
+```
 
-📸 Dashboard Screenshots
-
+## 📸 Dashboard Screenshots
 The following screenshots show the actual Streamlit dashboard produced by this project.
 
 ### Executive Overview
-
 The executive dashboard provides a high-level view of the product's user base, activation, completed GMV, average order value, and daily order activity.
 
 ![Executive Overview](docs/images/executive_overview.png)
@@ -490,12 +426,10 @@ The retention view presents weekly cohort retention alongside user spend segment
 
 ![Retention and Segmentation](docs/images/retention_segmentation.png)
 
-🚨 Automated KPI Monitoring
-
+## 🚨 Automated KPI Monitoring
 A lightweight monitoring script checks daily checkout success rates.
 
-Monitoring Workflow
-
+### Monitoring Workflow
 Daily Checkout Data
 
         ↓
@@ -520,10 +454,11 @@ The monitoring output is intended as an early-warning mechanism. It does not rep
 
 Run:
 
+```powershell
 python src\automation\monitor.py
+```
 
-🧪 Testing & Data Quality
-
+## 🧪 Testing & Data Quality
 The project includes automated tests using pytest.
 
 The current test suite contains 10 passing tests.
@@ -532,14 +467,13 @@ Run:
 
 pytest tests\
 
-Expected result:
-
+### Expected result:
 10 passed
 
 The tests validate analytical logic and data-quality assumptions used by the project.
 
-📁 Project Structure
-
+## 📁 Project Structure
+```text
 food-delivery-product-intelligence/
 
 │
@@ -617,105 +551,106 @@ food-delivery-product-intelligence/
 ├── README.md
 
 └── requirements.txt
+```
 
-🚀 Quickstart — Windows
-
+## 🚀 Quickstart — Windows
 1. Create and activate the virtual environment
 
+```powershell
 python -m venv .venv
+```
 
 Activate it:
 
+```powershell
 .\.venv\Scripts\Activate.ps1
+```
 
 Install dependencies:
 
+```powershell
 pip install -r requirements.txt
+```
 
 2. Generate Synthetic Data
 
+```powershell
 python src\generator\generate_data.py
+```
 
 3. Initialize DuckDB
 
+```powershell
 python src\analysis\init_db.py
+```
 
 4. Run SQL Analysis
 
+```powershell
 python src\analysis\run_sql.py
+```
 
 5. Run Growth Metrics
 
+```powershell
 python src\analysis\metric_tree.py
+```
 
 6. Run KPI Monitoring
 
+```powershell
 python src\automation\monitor.py
+```
 
 7. Run Tests
 
 pytest tests\
 
-Expected result:
-
+### Expected result:
 10 passed
 
 8. Launch the Dashboard
 
+```powershell
 streamlit run src\dashboard\app.py
+```
 
 The Streamlit dashboard will open locally in your browser.
 
-💡 Product Recommendations
-
+## 💡 Product Recommendations
 Based on the analytical findings, the following areas would be candidates for further investigation.
 
-1. Investigate Checkout Performance
-
+### 1. Investigate Checkout Performance
 The Android v1.9 Chicago segment shows lower checkout success despite having substantial checkout volume.
 
 Next step: Engineering should investigate technical and payment-related failure signals for this segment.
 
-2. Investigate View-to-Cart Conversion
-
+### 2. Investigate View-to-Cart Conversion
 The restaurant-view → add-to-cart stage represents the largest relative funnel drop.
 
 Next step: Product and Design could investigate:
 
-Restaurant information quality
-
-Menu presentation
-
-Pricing transparency
-
-Delivery-fee visibility
-
-Add-to-cart interaction
-
-Restaurant/menu UX
-
-3. Analyze Acquisition Quality
-
+- Restaurant information quality
+- Menu presentation
+- Pricing transparency
+- Delivery-fee visibility
+- Add-to-cart interaction
+- Restaurant/menu UX
+### 3. Analyze Acquisition Quality
 Acquisition channels can be compared using downstream behavioural metrics rather than acquisition volume alone.
 
 Next step: Compare channels using activation, repeat purchase, completed orders and spend behaviour.
 
-4. Monitor Product Health Continuously
-
+### 4. Monitor Product Health Continuously
 Aggregate checkout metrics should be monitored alongside segmented dimensions such as:
 
-Platform
-
-App version
-
-City
-
-Funnel stage
-
+- Platform
+- App version
+- City
+- Funnel stage
 This helps prevent localized product problems from being hidden by healthy aggregate metrics.
 
-⚠️ Limitations
-
+## ⚠️ Limitations
 The dataset is entirely synthetic.
 
 The checkout anomaly is intentionally injected to demonstrate RCA methodology.
@@ -728,76 +663,68 @@ The dashboard is designed for local demonstration.
 
 Results should not be interpreted as actual company or food-delivery industry performance.
 
-📚 Documentation
-
+## 📚 Documentation
 Additional documentation is available in the docs/ directory:
 
-executive_summary.md — high-level findings and recommendations
+- executive_summary.md — high-level findings and recommendations
 
-metric_dictionary.md — definitions and formulas for important metrics
+- metric_dictionary.md — definitions and formulas for important metrics
 
-interview_guide.md — project explanation and Product Analyst interview questions
+- interview_guide.md — project explanation and Product Analyst interview questions
 
-🛠️ Skills Demonstrated
-
+## 🛠️ Skills Demonstrated
 This project demonstrates practical experience with:
 
 Product Analytics
 
-User behaviour analysis
+- User behaviour analysis
 
-Product journey analysis
+- Product journey analysis
 
-Funnel analysis
+- Funnel analysis
 
-Conversion analysis
+- Conversion analysis
 
-Cohort retention
+- Cohort retention
 
-User segmentation
+- User segmentation
 
-Growth metrics
+- Growth metrics
 
-Root-cause analysis
+- Root-cause analysis
 
-Product recommendations
+- Product recommendations
 
 Data & Technical
 
-Advanced SQL
+- Advanced SQL
 
-Python
+- Python
 
-Pandas
+- Pandas
+- NumPy
+- DuckDB
+- Plotly
+- Streamlit
+- pytest
 
-NumPy
-
-DuckDB
-
-Plotly
-
-Streamlit
-
-pytest
-
-Statistical anomaly detection
+- Statistical anomaly detection
 
 Analytical Thinking
 
-Structured problem solving
+- Structured problem solving
 
-Metric definition
+- Metric definition
 
-Multi-dimensional analysis
+- Multi-dimensional analysis
 
-Hypothesis-driven RCA
+- Hypothesis-driven RCA
 
-Translating data findings into product actions
+- Translating data findings into product actions
 
-Automated KPI monitoring
+- Automated KPI monitoring
 
-👤 Author
-
+## 👤 Author
 Vortex Yash
 
 Independent Product Analytics Case Study
